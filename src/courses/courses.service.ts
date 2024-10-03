@@ -24,8 +24,12 @@ export class CoursesService {
     return `This action returns a #${id} course`;
   }
 
-  update(id: number, updateCourseDto: UpdateCourseDto) {
-    return `This action updates a #${id} course`;
+  async update(id: string, updateCourseDto: UpdateCourseDto) {
+    const course = await this.courseRepository.findOne({ where: { id } });
+    if (course) {
+      return this.courseRepository.save({ ...course, ...updateCourseDto });
+    }
+    return course;
   }
 
   remove(id: number) {

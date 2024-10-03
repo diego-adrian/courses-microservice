@@ -18,16 +18,17 @@ export class CoursesController {
   async findAll(): Promise<Course[]> {
     return this.coursesService.findAll();
   }
+  
+  @MessagePattern({ cmd: 'UPDATE_COURSE' })
+  update(@Payload() updateCourseDto: UpdateCourseDto) {
+    return this.coursesService.update(updateCourseDto.id, updateCourseDto);
+  }
 
   // @Get(':id')
   findOne(@Param('id') id: string) {
     return this.coursesService.findOne(+id);
   }
 
-  // @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.coursesService.update(+id, updateCourseDto);
-  }
 
   // @Delete(':id')
   remove(@Param('id') id: string) {
