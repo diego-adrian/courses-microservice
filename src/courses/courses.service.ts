@@ -18,11 +18,12 @@ export class CoursesService {
   }
 
   async findAll() {
-    this.logger.log('Getting all courses');
+    this.logger.log('Getting all courses', Math.random().toString());
     return this.courseRepository.find({});
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
+    console.log('Get by id', id);
     return `This action returns a #${id} course`;
   }
 

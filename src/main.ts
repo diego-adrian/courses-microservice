@@ -5,10 +5,11 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    transport: Transport.REDIS,
+    transport: Transport.MQTT,
     options: {
-      host: process.env.REDIS_HOST,
-      port: +process.env.PORT
+      host: process.env.MQTT_HOST,
+      port: +process.env.PORT,
+      protocol: 'mqtt',
   }})
   app.useGlobalPipes(new ValidationPipe());
   await app.listen();
