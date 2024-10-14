@@ -3,7 +3,7 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Ctx, MessagePattern, NatsContext, Payload } from '@nestjs/microservices';
 
 @Controller('courses')
 export class CoursesController {
@@ -15,7 +15,9 @@ export class CoursesController {
   }
 
   @MessagePattern('GET_ALL_COURSES')
-  async findAll(): Promise<Course[]> {
+  async findAll(@Payload() data:any, @Ctx() context: NatsContext): Promise<Course[]> {
+    console.log(data);
+    console.log(context);
     return this.coursesService.findAll();
   }
   
