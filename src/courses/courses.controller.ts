@@ -16,8 +16,6 @@ export class CoursesController {
 
   @MessagePattern('GET_ALL_COURSES')
   async findAll(@Payload() data:any, @Ctx() context: NatsContext): Promise<Course[]> {
-    console.log(data);
-    console.log(context);
     return this.coursesService.findAll();
   }
   
