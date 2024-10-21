@@ -22,9 +22,18 @@ export class CoursesService {
     return this.courseRepository.find({});
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     console.log('Get by id', id);
-    return `This action returns a #${id} course`;
+    try{
+      const course = await this.courseRepository.findOne({ where: { id } });
+      if (!course) {
+        throw new Error('Course not found');
+      }
+      return course;
+    } catch (error) {
+      console.error('Error', error.message);
+    }
+    return {} as Course;
   }
 
   async update(id: string, updateCourseDto: UpdateCourseDto): Promise<string | Course> {

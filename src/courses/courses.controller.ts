@@ -3,7 +3,7 @@ import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
-import { Ctx, MessagePattern, NatsContext, Payload } from '@nestjs/microservices';
+import { Ctx, GrpcMethod, MessagePattern, NatsContext, Payload } from '@nestjs/microservices';
 
 @Controller('courses')
 export class CoursesController {
@@ -25,7 +25,7 @@ export class CoursesController {
   }
   
   
-  @MessagePattern('GET_BY_ID')
+  @GrpcMethod('CoursesService', 'getCourse')
   findOne(@Payload('id') id: string) {
     return this.coursesService.findOne(id);
   }
